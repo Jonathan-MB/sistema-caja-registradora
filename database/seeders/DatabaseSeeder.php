@@ -6,6 +6,8 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use function PHPSTORM_META\type;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,11 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Llamada  a seeders
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $this->call(TypeSeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(SaleDetailSeeder::class);
+        $this->call(SaleSeeder::class);
     }
 }
