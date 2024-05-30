@@ -15,9 +15,9 @@ class Product extends Model
         'product_stock'
     ];
 
-    public function sale_detail()
+    public function saleDetail()
     {
-        return $this->hasMany(Sale_detail::class);
+        return $this->hasMany(SaleDetail::class);
     }
 
 }
