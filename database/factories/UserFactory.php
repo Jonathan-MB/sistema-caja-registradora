@@ -2,43 +2,34 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Unique;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
+    protected $model = User::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    public function definition()
     {
+
+
+        $type = $this->faker->numberBetween(1, 2);
+
+        // Genera NIT o CC dependiendo del tipo
+        $idNumber = $this->faker->unique()->numerify($type == 1 ? '#########' : '##########');
+
+        // Genera nombre de persona o de empresa segun type 
+        $name = $this->faker->unique()->numerify($type == 1 ? fake()->name() : fake()->company());
+
+        // Genera un nombre de empresa si el tipo es 2 sino  lo deja como null
+        $businessName = $type == 2 ? fake()->Unique()->company(): null;
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'user_name' => $name,
+            'user_cc_nit' => $idNumber,
+            'user_business_name' => $businessName,
+            'type_id' => $type,
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
     }
 }
