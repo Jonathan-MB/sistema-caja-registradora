@@ -17,7 +17,7 @@ class TypeSeeder extends Seeder
         // creacion predefinida  tipos de usario
         $types = [
             [
-                'type_name' => 'persona natural',
+                'type_name' => 'Persona Natural',
                 'updated_at' => now(),
                 'created_at' => now(),
             ],

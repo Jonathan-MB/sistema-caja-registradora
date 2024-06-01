@@ -9,23 +9,19 @@ class Sale extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
         'sale_subtotal',
         'sale_total',
         'user_id',
-
     ];
 
-    public function user(){
-        
+    public function user()
+    {
         return $this->belongsTo(User::class);
-
-    }
-    public function saleDetail(){
-        
-        return $this->hasMany(saleDetail::class);
-
     }
 
+    public function saleDetail() 
+    {
+        return $this->hasMany(SaleDetail::class);
+    }
 }
