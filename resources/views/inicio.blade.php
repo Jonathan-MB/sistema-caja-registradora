@@ -5,39 +5,84 @@
 @endsection
 
 @section('css')
-
-<link rel="stylesheet" href="{{asset('css/inicio.css')}}">
-
+    <link rel="stylesheet" href="{{ asset('css/registro.css') }}">
 @endsection
 
 
 @section('contenido')
-<div class="d-flex justify-content-center align-items-center contenedorCardInicio" style="min-height: 100vh;">
-    <div class="card text-white bg-secondary mb-3 cardInicio">
-        <div class="card-header d-flex justify-content-center align-items-center">
-            <p class="tituloCard">Identificación Usuario</p>
+
+<div id="alertContainer"></div>
+    <div>
+        <form id="userInicioForm">
+            @csrf
+            <label for="ccNitInicio">Cédula o NIT</label>
+            <input type="text" id="ccNitInicio" name="ccNitInicio" required>
+
+            <button type="submit">Validar</button>
+            <p>Validamos si el usuario está registrado.</p>
+        </form>
+
+        <div id="datosUser">
+            <input type="text" id="userName" name="userName" placeholder="Nombre de usuario"readonly>
+            <input type="text" id="userId" name="userId" placeholder="ID de usuario"readonly>
+            <input type="text" id="typeId" name="typeId" placeholder="Tipo de usuario"readonly>
         </div>
-        <div class="card-body">
-            <div id="alertContainer"></div>
-            <form id="userForm" class="d-flex flex-column align-items-center" action="{{route('user.validateUser')}} "method="POST" >
-                @csrf
-                <div class="mb-3 w-100">
-                    <label for="ccNit" class="form-label centerInCard">Cédula o NIT</label>
-                    <input type="text" class="form-control no-spinner ccNitInput" id="ccNit" name="ccNit" required placeholder="XXXXXXXXX">
+
+    </div>
+
+    <div class=" justify-content-center align-items-center contenedorCardInicio" id="registrarUser"
+        style="min-height: 100vh; display:none;"" > 
+        <div class="card text-white bg-secondary mb-3 cardInicio">
+            <div class="card-header d-flex justify-content-center align-items-center">
+                <p class="tituloCard">Registro de Usuarios</p>
+            </div>
+            <div class="card-body">
+                <div class="container mt-5">
+                    <!-- Mensajes de éxito o error -->
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+            
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+            
+                    <form id="userForm" class="d-flex flex-column align-items-center" action="{{ route('user.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3 w-100">
+                            <select class="form-select" aria-label="Default select example" id="tipoClienteSelect" name="tipoClienteSelect">
+                                <option value="">Tipo De Cliente</option>
+                                <option value="1">Persona Natural</option>
+                                <option value="2">Persona Juridica</option>
+                            </select>
+            
+                            <label for="ccNit" id="ccNitLabel" class="form-label labelRegister">Cédula o NIT</label>
+                            <input type="text" class="form-control no-spinner" id="ccNit" maxlength="10" name="ccNit" required placeholder="XXXXXXXXX" disabled >
+            
+                            <label for="nombre" class="form-label labelRegister">Nombre</label>
+                            <input type="text" class="form-control no-spinner" id="nombre" maxlength="45" name="nombre" required  disabled>
+            
+                            <label for="razonSocial" id="razonSocialLabel" name="razonSocialLabel" class="form-label labelRegister">Razón social</label>
+                            <input type="text" class="form-control no-spinner" id="razonSocial" maxlength="45" name="razonSocial" required  disabled >
+                        </div>
+            
+                        <button type="submit" class="btn btn-warning btnCard" id="registrar">Registrar</button>
+                        <p class="textCard mt-3">Validamos si el usuario está registrado.</p>
+                    </form>
                 </div>
-
-                <button type="submit" class="btn btn-warning btnCard" id="validar">Validar</button>
-                <p class="textCard mt-3">Validamos si el usuario está registrado.</p>
-
-
-            </form>
         </div>
     </div>
-</div>
 @endsection
 
 
 
 @section('scrips')
-    <script src="{{ asset('js/inicio.js') }}"></script>
+
+<script src="{{ asset('js/btnRegistrar.js') }}"></script>
+<script src="{{ asset('js/inicio.js') }}"></script>
+    <script src="{{ asset('js/registro.js') }}"></script>
 @endsection

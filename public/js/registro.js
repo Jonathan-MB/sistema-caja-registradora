@@ -15,6 +15,21 @@ document.addEventListener('DOMContentLoaded', function () {
         const ccNitLabel = document.getElementById('ccNitLabel');
         const nombreLabel = document.getElementById('nombreLabel');
         const razonSocialLabel = document.getElementById('razonSocialLabel');
+        const cerrar = document.getElementById('registrarUser');
+        const cubierta = document.getElementById('contenedorCardInicio');
+
+        ccNitInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            registrarButton.disabled = !registrarteForm();
+        });
+
+
+        cerrar.addEventListener('click',(e)  => {
+
+            cubierta.style.display = 'none';
+
+        });
+
 
         // Desabilirta campos si no hay tipo de suario
         if (tipoClienteSelect.value !== '') {
@@ -32,25 +47,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Cambia Texts y Campos Segun el tipo
         if (tipoClienteSelect.value == '1') {
+            razonSocialLabel.style.display = 'none';
             razonSocialInput.style.display = 'none';
             razonSocialInput.removeAttribute('required');
             ccNitLabel.textContent = 'Ingrese Cédula';
             nombreLabel.textContent = 'Nombre y Apellido';
-            razonSocialLabel.style.display = 'none';
 
-            
+
         } else {
             ccNitLabel.textContent = 'Ingrese NIT';
+            razonSocialLabel.style.display = 'block';
             razonSocialInput.style.display = 'block';
             razonSocialInput.required = true;
             nombreLabel.textContent = 'Nombre de la Empresa';
-            razonSocialLabel.style.display = 'block';
         }
 
 
-        ccNitInput.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
-            registrarButton.disabled = !registrarteForm();
-        });
+
     });
 });

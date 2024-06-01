@@ -18,6 +18,7 @@ Route::post('/user', [UserController::class,'store'])->name('user.store');
 Route::get('/sale', [SaleController::class,'index'])->name('sale.index');
 Route::get('/sale/info', [SaleController::class,'info'])->name('sale.info');
 Route::get('/sale/create', [SaleController::class,'create'])->name('sale.create');
+Route::post('/sales', [SaleController::class, 'store'])->name('sale.store');;
 
 Route::get('/product/search', [ProductController::class, 'search'])->name('product.search');
 Route::get('/product/check', [ProductController::class, 'check'])->name('product.check');

@@ -38,16 +38,25 @@ class UserController extends Controller
     public function validateUser(Request $request)
     {
         try {
-            $ccNit = $request->input('ccNit');
+            $ccNit = $request->input('ccNitInicio');
             $user = DB::table('users')->where('user_cc_nit', $ccNit)->first();
 
             if ($user != null) {
 
-                // Usuario encontrado, redireccionar a facturar (sale.index)
-                return redirect()->route('sale.create');
+                // retorna json con la informacion de usuario 
+                return response()->json(
+                    [
+                        'status' => true,
+                        'user' => $user
+                    ]
+                );
             } else {
                 // Usuario no encontrado, redirigir a registro
-                return redirect()->route('user.create');
+                return response()->json(
+                    [
+                        'status' => false
+                    ]
+                );
             }
         } catch (\Throwable $ex) {
             // Registro de error
@@ -80,24 +89,17 @@ class UserController extends Controller
         }
     }
 
-
     public function store(Request $request)
     {
         try {
             $ccNit = $request->input('ccNit');
             $user = DB::table('users')->where('user_cc_nit', $ccNit)->first();
-
+    
             if ($user != null) {
-
-                // Guardar variables session
-                Session::flash('alert', 'El usuario ya existe en la base de datos.');
-
-                // Usuario 
-                return redirect()->back();
+                return redirect()->route('sale.create')->with('error', 'Usuario ya existe');
             } else {
-
                 // Crea Usuario
-                $newUser = DB::table('users')->insert([
+                DB::table('users')->insert([
                     'user_name' => $request->input('nombre'),
                     'user_cc_nit' => $request->input('ccNit'),
                     'user_business_name' => $request->input('razonSocial'),
@@ -105,25 +107,11 @@ class UserController extends Controller
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
-
-                // Guardar información del usuario en la sesión
-                session(['usuario' => $newUser]);
-
-                // Redireccionar a la ruta de facturación
-                return redirect()->route('sale.create');
+                return redirect()->route('sale.create')->with('success', 'Usuario creado con éxito');
             }
         } catch (\Throwable $ex) {
-            // Registrar error en el log
             Log::error('Error en UserController@store: ' . $ex->getMessage());
-
-            return response()->json(
-                [
-                    'status' => false,
-                    'message' => 'Se produjo un error en el servidor'
-                ],
-                500
-            );
+            return redirect()->route('sale.create')->with('error', 'Se produjo un error en el servidor');
         }
     }
- 
 }
