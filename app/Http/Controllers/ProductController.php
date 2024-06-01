@@ -178,4 +178,22 @@ class ProductController extends Controller
             );
         }
     }
+
+
+    public function autocomplete(Request $request)
+    {
+        $term = $request->input('term');
+
+        $productos = Product::where('product_name', 'LIKE', '%' . $term . '%')
+            ->orWhere('product_code', 'LIKE', '%' . $term . '%')
+            ->get()
+            ->map(function ($producto) {
+                return [
+                    'label' => $producto->product_name,
+                    'value' => $producto->product_code
+                ];
+            });
+
+        return response()->json($productos);
+    }
 }

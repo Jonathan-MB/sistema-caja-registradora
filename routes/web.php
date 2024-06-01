@@ -23,6 +23,8 @@ Route::post('/sales', [SaleController::class, 'store'])->name('sale.store');;
 Route::get('/product/search', [ProductController::class, 'search'])->name('product.search');
 Route::get('/product/check', [ProductController::class, 'check'])->name('product.check');
 Route::get('/product/getPrice', [ProductController::class, 'getPrice'])->name('product.getPrice');
+Route::get('/product/autocomplete', [ProductController::class, 'autocomplete'])->name('product.autocomplete');
+
 
 
 

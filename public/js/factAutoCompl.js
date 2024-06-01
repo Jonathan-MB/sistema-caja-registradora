@@ -1,26 +1,10 @@
-$(document).ready(function () {
-    function validateForm() {
-        var productoCode = $('#productoCode').val();
-        var nombreProducto = $('#nombreProducto').val();
-        var cantidadProducto = $('#cantidadProducto').val();
-        var isValid = productoCode.length > 0 && nombreProducto.length > 0 && cantidadProducto.length > 0 && cantidadProducto > 0;
-        $('#Agregar').prop('disabled', !isValid);
-    }
 
-    function searchProduct(query, callback) {
-        $.ajax({
-            url: "/sistema-caja-registradora/public/product/search",
-            type: "GET",
-            data: { 'query': query },
-            success: function (data) {
-                callback(data);
-            },
-            error: function () {
-                $('#productList').empty();
-                $('#productList').append('<li class="list-group-item">Error al buscar productos</li>');
-            }
-        });
-    }
+$(document).ready(function () {
+    var saleDetails = [];
+
+    $('#Agregar').on('click', function () {
+        verificarProducto();
+    });
 
     $('#nombreProducto').on('keyup', function () {
         var query = $(this).val();
@@ -57,6 +41,26 @@ $(document).ready(function () {
         }
     });
 
+    function agregarProductoATabla() {
+        var productoCode = $('#productoCode').val();
+        var nombreProducto = $('#nombreProducto').val();
+        var cantidadProducto = $('#cantidadProducto').val();
+        var precioUnitario = parseFloat($('#precioProducto').text().replace('$', ''));
+        var subtotal = cantidadProducto * precioUnitario;
+    
+        // Crear fila HTML para el producto seleccionado
+        var fila = '<tr>' +
+            '<td>' + productoCode + '</td>' +
+            '<td>' + nombreProducto + '</td>' +
+            '<td>' + cantidadProducto + '</td>' +
+            '<td>$' + precioUnitario.toFixed(2) + '</td>' +
+            '<td>$' + subtotal.toFixed(2) + '</td>' +
+            '</tr>';
+    
+        // Agregar la fila a la tabla
+        $('#selectedProductsTable tbody').append(fila);
+    }
+    
     $(document).on('click', '.list-group-item', function () {
         var productName = $(this).text();
         var productCode = $(this).data('code');
@@ -65,7 +69,10 @@ $(document).ready(function () {
         $('#productList').empty();
         validateForm();
     });
-
+    $('#agregarVenta').on('click', function () {
+        agregarProductoATabla();
+        verificarProducto();
+    });
     $('#cantidadProducto').on('input', function () {
         validateForm();
         updatePrice();
@@ -75,6 +82,67 @@ $(document).ready(function () {
         validateForm();
         updatePrice();
     });
+
+    function verificarProducto() {
+        var productoCode = $('#productoCode').val();
+        var cantidadProducto = $('#cantidadProducto').val();
+
+        $.ajax({
+            url: "/sistema-caja-registradora/public/product/check",
+            type: "GET",
+            data: { 'productoCode': productoCode, 'cantidadProducto': cantidadProducto },
+            success: function (data) {
+                if (data.exists && data.enoughStock) {
+                    var saleDetail = {
+                        product_code: productoCode,
+                        product_precio: data.productPrice,
+                        quantity_product: cantidadProducto
+                    };
+                    saleDetails.push(saleDetail);
+                    $('#userForm').submit();
+                } else {
+                    var message = data.exists ? "Stock insuficiente. Stock disponible: " + data.stockDisponible : "Código de producto incorrecto.";
+                    var alertType = data.exists ? "warning" : "danger";
+                    var alertHTML = '<div class="alert alert-' + alertType + ' alert-dismissible fade show" role="alert">' +
+                        message +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                        '</div>';
+                    $('#alertContainer').html(alertHTML);
+                }
+            },
+            error: function () {
+                var errorMessage = "Error al verificar el producto. Por favor, inténtalo de nuevo.";
+                var errorAlert = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                    errorMessage +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                    '</div>';
+                $('#alertContainer').html(errorAlert);
+            }
+        });
+    }
+
+    function searchProduct(query, callback) {
+        $.ajax({
+            url: "/sistema-caja-registradora/public/product/search",
+            type: "GET",
+            data: { 'query': query },
+            success: function (data) {
+                callback(data);
+            },
+            error: function () {
+                $('#productList').empty();
+                $('#productList').append('<li class="list-group-item">Error al buscar productos</li>');
+            }
+        });
+    }
+
+    function validateForm() {
+        var productoCode = $('#productoCode').val();
+        var nombreProducto = $('#nombreProducto').val();
+        var cantidadProducto = $('#cantidadProducto').val();
+        var isValid = productoCode.length > 0 && nombreProducto.length > 0 && cantidadProducto.length > 0 && cantidadProducto > 0;
+        $('#agregarVenta').prop('disabled', !isValid);
+    }
 
     function updatePrice() {
         var cantidadProducto = parseFloat($('#cantidadProducto').val());
@@ -113,3 +181,4 @@ $(document).ready(function () {
 
     validateForm();
 });
+

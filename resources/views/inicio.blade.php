@@ -10,8 +10,6 @@
 
 
 @section('contenido')
-
-<div id="alertContainer"></div>
     <div>
         <form id="userInicioForm">
             @csrf
@@ -31,49 +29,43 @@
     </div>
 
     <div class=" justify-content-center align-items-center contenedorCardInicio" id="registrarUser"
-        style="min-height: 100vh; display:none;"" > 
+        style="min-height: 100vh; " ;>   {{--  <---- awui display none --}}
         <div class="card text-white bg-secondary mb-3 cardInicio">
             <div class="card-header d-flex justify-content-center align-items-center">
                 <p class="tituloCard">Registro de Usuarios</p>
             </div>
             <div class="card-body">
-                <div class="container mt-5">
-                    <!-- Mensajes de éxito o error -->
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-            
-                    @if(session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-            
-                    <form id="userForm" class="d-flex flex-column align-items-center" action="{{ route('user.store') }}" method="POST">
-                        @csrf
-                        <div class="mb-3 w-100">
-                            <select class="form-select" aria-label="Default select example" id="tipoClienteSelect" name="tipoClienteSelect">
-                                <option value="">Tipo De Cliente</option>
-                                <option value="1">Persona Natural</option>
-                                <option value="2">Persona Juridica</option>
-                            </select>
-            
-                            <label for="ccNit" id="ccNitLabel" class="form-label labelRegister">Cédula o NIT</label>
-                            <input type="text" class="form-control no-spinner" id="ccNit" maxlength="10" name="ccNit" required placeholder="XXXXXXXXX" disabled >
-            
-                            <label for="nombre" class="form-label labelRegister">Nombre</label>
-                            <input type="text" class="form-control no-spinner" id="nombre" maxlength="45" name="nombre" required  disabled>
-            
-                            <label for="razonSocial" id="razonSocialLabel" name="razonSocialLabel" class="form-label labelRegister">Razón social</label>
-                            <input type="text" class="form-control no-spinner" id="razonSocial" maxlength="45" name="razonSocial" required  disabled >
-                        </div>
-            
-                        <button type="submit" class="btn btn-warning btnCard" id="registrar">Registrar</button>
-                        <p class="textCard mt-3">Validamos si el usuario está registrado.</p>
-                    </form>
-                </div>
+                <div id="alertContainer"></div>
+                <form id="userForm" class="d-flex flex-column align-items-center" action="{{ route('user.store') }}"
+                    method="POST">
+                    @csrf
+                    <div class="mb-3 w-100">
+                        <select class="form-select" aria-label="Default select example" id="tipoClienteSelect"
+                            name="tipoClienteSelect">
+
+                            <option>Tipo De Cliente</option>
+                            <option value="1">Persona Natual</option>
+                            <option value="2">Persona Juridica</option>
+
+                        </select>
+
+                        <label for="ccNit" id="ccNitLabel" class="form-label labelRegister">Cédula o NIT</label>
+                        <input type="text" class="form-control no-spinner " id="ccNit" maxlength="10" name="ccNit"
+                            required placeholder="XXXXXXXXX" disabled>
+
+                        <label for="nombreLabel" class="form-label labelRegister">Nombre</label>
+                        <input type="text" class="form-control no-spinner " id="nombre" maxlength="45" name="nombre"
+                            required disabled>
+
+                        <label for="razonSocialLabel" class="form-label labelRegister">Razón social</label>
+                        <input type="text" class="form-control no-spinner " id="razonSocial" maxlength="45"
+                            name="razonSocial" required disabled>
+                    </div>
+
+                    <button type="submit" class="btn btn-warning btnCard" id="registrar" disabled>Registrar</button>
+                    <p class="textCard mt-3">Validamos si el usuario está registrado.</p>
+                </form>
+            </div>
         </div>
     </div>
 @endsection

@@ -54,8 +54,8 @@ class SaleController extends Controller
     public function create()
     {
         try {
-
-            return view('layouts.Facturar');
+            $productos = Product::all();
+            return view('inicio', compact('productos'));;
         } catch (\Throwable $ex) {
 
             //registro error Log
