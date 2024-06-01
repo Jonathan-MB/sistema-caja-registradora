@@ -22,7 +22,6 @@
 
 @section('scrips')
 
-
-
 <script src="{{asset('js/facturasLista.js')}}"></script>
+
 @endsection

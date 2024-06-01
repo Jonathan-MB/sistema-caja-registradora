@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Type;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -16,7 +17,7 @@ class UserController extends Controller
     {
         try {
 
-            return ('index user');
+            return ('index');
         } catch (\Throwable $ex) {
 
             //registro error Log
@@ -38,25 +39,16 @@ class UserController extends Controller
     public function validateUser(Request $request)
     {
         try {
-            $ccNit = $request->input('ccNitInicio');
+            $ccNit = $request->input('ccNit');
             $user = DB::table('users')->where('user_cc_nit', $ccNit)->first();
 
             if ($user != null) {
-
-                // retorna json con la informacion de usuario 
-                return response()->json(
-                    [
-                        'status' => true,
-                        'user' => $user
-                    ]
-                );
+    
+                $user = DB::table('users')->where('user_cc_nit', $ccNit)->first();
+                return view('layouts.facturar',['user'=>$user]);
             } else {
-                // Usuario no encontrado, redirigir a registro
-                return response()->json(
-                    [
-                        'status' => false
-                    ]
-                );
+                $user = DB::table('users')->where('user_cc_nit', $ccNit)->first();
+                return redirect()->route('user.create');
             }
         } catch (\Throwable $ex) {
             // Registro de error
@@ -89,17 +81,24 @@ class UserController extends Controller
         }
     }
 
+
+
+
     public function store(Request $request)
     {
         try {
             $ccNit = $request->input('ccNit');
             $user = DB::table('users')->where('user_cc_nit', $ccNit)->first();
-    
+
             if ($user != null) {
-                return redirect()->route('sale.create')->with('error', 'Usuario ya existe');
+
+
+                // Usuario 
+                return redirect()->back();
             } else {
+
                 // Crea Usuario
-                DB::table('users')->insert([
+                $newUser = DB::table('users')->insert([
                     'user_name' => $request->input('nombre'),
                     'user_cc_nit' => $request->input('ccNit'),
                     'user_business_name' => $request->input('razonSocial'),
@@ -107,11 +106,24 @@ class UserController extends Controller
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
-                return redirect()->route('sale.create')->with('success', 'Usuario creado con éxito');
+                $user = DB::table('users')->where('user_cc_nit', $ccNit)->first();
+
+                // Redireccionar a la ruta de facturación
+                return view('layouts.facturar',['user'=>$user]);
             }
         } catch (\Throwable $ex) {
+            // Registrar error en el log
             Log::error('Error en UserController@store: ' . $ex->getMessage());
-            return redirect()->route('sale.create')->with('error', 'Se produjo un error en el servidor');
+
+            return response()->json(
+                [
+                    'status' => false,
+                    'message' => 'Se produjo un error en el servidor'
+                ],
+                500
+            );
         }
     }
+
+
 }

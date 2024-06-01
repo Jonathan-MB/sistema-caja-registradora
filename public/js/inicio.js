@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    const inputCcNit = document.getElementById("ccNitInicio");
+    const input2 = document.getElementById("ccNit");
 
     // Permitir solo números
-    inputCcNit.addEventListener("input", (e) => {
+    input2.addEventListener("input", (e) => {
         const { value } = e.target;
         e.target.value = value.replace(/[^0-9]/g, '');
     });
 
-    const form = document.getElementById('userInicioForm');
+    const form = document.getElementById('userForm');
 
     // Validar al enviar el formulario
     form.addEventListener('submit', (e) => {
-        const value = inputCcNit.value;
+        const value = input2.value;
         const alertContainer = document.getElementById('alertContainer');
         
         // Limpiar alertas anteriores
@@ -28,41 +28,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
             // Insertar alerta 
             alertContainer.appendChild(alertDiv);
-        }});
-
-
-    // Formulario  verificacion Bd----------------------------------------------------------------------------------------------------------
-
-    const userInicioForm = document.getElementById('userInicioForm');
-    userInicioForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const formData = $(userInicioForm).serialize();
-
-        $.ajax({
-            url: '/sistema-caja-registradora/public/user/validateUser',
-            type: 'POST',
-            data: formData,
-            dataType: 'json',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (response) {
-                if (response.status === true) {
-                    $('#datosUser input[name="userName"]').val(response.user.user_name);
-                    $('#datosUser input[name="userId"]').val(response.user.id);
-                    $('#datosUser input[name="typeId"]').val(response.user.type_id);
-                    $('#datosUser').show();
-                    $('#registrarUser').hide();
-                } else {
-                    $('#registrarUser').show();
-                }
-            },
-            error: function (response) {
-
-                console.log("Error:", response);
-            }
-        });
+        }
     });
-
 });

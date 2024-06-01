@@ -16,7 +16,7 @@ class UserFactory extends Factory
 
         $type = $this->faker->numberBetween(1, 2);
 
-        // Genera NIT o CC dependiendo del tipo
+        // Genera NIT o CC segun type
         $idNumber = $this->faker->unique()->numerify($type == 1 ? '#########' : '##########');
 
         // Genera nombre de persona o de empresa segun type 

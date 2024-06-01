@@ -15,21 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const ccNitLabel = document.getElementById('ccNitLabel');
         const nombreLabel = document.getElementById('nombreLabel');
         const razonSocialLabel = document.getElementById('razonSocialLabel');
-        const cerrar = document.getElementById('registrarUser');
-        const cubierta = document.getElementById('contenedorCardInicio');
-
-        ccNitInput.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
-            registrarButton.disabled = !registrarteForm();
-        });
-
-
-        cerrar.addEventListener('click',(e)  => {
-
-            cubierta.style.display = 'none';
-
-        });
-
 
         // Desabilirta campos si no hay tipo de suario
         if (tipoClienteSelect.value !== '') {
@@ -53,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
             ccNitLabel.textContent = 'Ingrese Cédula';
             nombreLabel.textContent = 'Nombre y Apellido';
 
-
+            
         } else {
             ccNitLabel.textContent = 'Ingrese NIT';
             razonSocialLabel.style.display = 'block';
@@ -63,6 +48,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
 
-
+        ccNitInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            registrarButton.disabled = !registrarteForm();
+        });
     });
 });

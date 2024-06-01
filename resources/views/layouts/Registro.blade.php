@@ -33,7 +33,7 @@
                         <label for="nombreLabel" class="form-label labelRegister">Nombre</label>
                         <input type="text" class="form-control no-spinner " id="nombre" maxlength="45" name="nombre" required disabled>
                 
-                        <label for="razonSocialLabel" class="form-label labelRegister">Razón social</label>
+                        <label for="razonSocialLabel"  id="razonSocialLabel"  class="form-label labelRegister">Razón social</label>
                         <input type="text" class="form-control no-spinner " id="razonSocial" maxlength="45" name="razonSocial" required disabled>
                     </div>
                 

@@ -23,8 +23,9 @@ class User extends Model
         return $this->belongsTo(Type::class);
     }
 
-    public function sale()
-    {
+    public function sale(){
+        
         return $this->hasMany(Sale::class);
+
     }
 }

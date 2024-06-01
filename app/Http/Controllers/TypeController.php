@@ -13,7 +13,7 @@ class TypeController extends Controller
     {
         try {
 
-            return ('index Type');
+            return ('hola');
 
         } catch (\Throwable $ex) {
 
