@@ -237,10 +237,10 @@ class UserController extends Controller
             // Recupera los datos actualizados del usuario
             $updatedUser = DB::table('users')->find($id);
 
-            return response()->json($updatedUser);
 
             // Redirecciona a la vista de detalle del usuario
-            // return view('layouts.userShow', ['user' => $updatedUser]);
+            return view('layouts.userShow', ['user' => $updatedUser]);
+            
         } catch (\Throwable $ex) {
             // Registra un error en el log y devuelve un mensaje de error
             Log::error('Error en UserController@update: ' . $ex->getMessage());
