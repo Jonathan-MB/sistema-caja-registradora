@@ -7,14 +7,19 @@
 }
 
 body {
+    min-height: 100vh;
     font-family: Arial, sans-serif; 
     background-image: url('../img/fondoBody.PNG');
-    background-color: #eadede9c;
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center;
+    background-color: #eadede9c; 
 }
 
 
 footer{
     background-color: #00000046;
+    margin: 0;
 }
 
 .identity{

@@ -1,5 +1,11 @@
 document.addEventListener('DOMContentLoaded', (event) => {
+
+
+
     const input2 = document.getElementById("ccNit");
+
+  
+
 
     // Permitir solo números
     input2.addEventListener("input", (e) => {

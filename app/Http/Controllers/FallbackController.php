@@ -10,6 +10,6 @@ class FallbackController extends Controller
 {
     public function fallback(Request $request)
     {
-        return ('rutaNoExiste');
+        return view('rutaNoEncontrada404');
     }
 }

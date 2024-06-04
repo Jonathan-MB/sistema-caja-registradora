@@ -1,0 +1,16 @@
+.cardInicio {
+            background-color: #F2F2F2;
+        }
+
+        .tituloCard {
+            color: #333;
+        }
+
+        .form-label {
+            color: #555;
+        }
+
+        .btnCard {
+            background-color: #FFC107;
+            border-color: #FFC107;
+        }

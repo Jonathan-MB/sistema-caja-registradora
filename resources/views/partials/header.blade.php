@@ -7,8 +7,11 @@
             <h1 class="tituloHeader">Sistema De Registro</h1>
         </a>
         <div class="justify-content-between">
-            <a type="button" class="btn btn-light" href="{{asset('user')}} "> Registrar</a>
-            <a type="button" class="btn btn-light" href="{{asset('sale')}} "> Lista Facturas</a>
+            <a type="button" class="btn btn-light" href="{{asset('user/create')}} ">Registrar Usuario</a>
+            <a type="button" class="btn btn-light" href="{{asset('sale/create')}} ">Facturar</a>
+            <a type="button" class="btn btn-light" href="{{asset('product')}} ">Productos</a>
+            <a type="button" class="btn btn-light" href="{{asset('user')}} ">Usuarios</a>
+            <a type="button" class="btn btn-light" href="{{asset('sale')}} ">Facturas</a>
 
         </div>
     </div>

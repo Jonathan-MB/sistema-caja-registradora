@@ -23,7 +23,7 @@
     {{-- Css Header --}}
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     {{-- Css Footer --}}
-    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+
 
     {{-- Otros css --}}
     @yield('css')
