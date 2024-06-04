@@ -9,12 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class ProductSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+
     public function run(): void
     {
-
 
         $product = [
             'product_name' => 'aaaaa producto prueba cero Stock',
