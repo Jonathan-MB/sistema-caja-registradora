@@ -1,0 +1,63 @@
+
+/* Reinicio de  css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif; 
+    background-image: url('../img/fondoBody.PNG');
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center;
+    background-color: #eadede9c; 
+}
+
+
+footer{
+    background-color: #00000046;
+    margin: 0;
+}
+
+.identity{
+    color: #ffffff;
+    font-weight: bolder;
+    
+}
+
+.contenedorCardInicio {
+    min-height: 80vh;
+    min-width: 100vw;
+}
+
+.cardInicio {
+    max-width: 50vw;
+    box-shadow: 0px 0px 10px #000000 ;
+    margin-top: -20%;
+}
+
+.tituloCard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+    padding: 10px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.textCard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ccNitInput {
+    text-align: right;
+}
+
+.btnCard{
+    font-weight: bolder;
+}

@@ -1,0 +1,34 @@
+.contenedorCardInicio {
+    min-height: 100vh;
+    background: #f9fafb6d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cardInicio {
+    border-radius: 15px;
+    overflow: hidden;
+    background: #343a40;
+}
+.tituloCard {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.card-body {
+    background: #ffffff;
+    color: #343a40;
+    padding: 20px;
+}
+.card-body p {
+    margin: 10px 0;
+}
+.btn-primary, .btn-secondary {
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}

@@ -10,15 +10,20 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
+
     {
-        Schema::create('sales_details', function (Blueprint $table) {
+
+
+        Schema::create('sale_details', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity_product')->nullable(false)->default(1);
-            $table->decimal('total', 10, 2)->nullable(false)->default(0);
+            $table->decimal('sale_detail_total', 10, 2)->nullable(false)->default(0);
             $table->foreignId('sale_id')->constrained('sales');
             $table->foreignId('product_id')->constrained('products');
             $table->timestamps();
         });
+
+    
     }
 
     /**
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sales_details');
+        Schema::dropIfExists('sale_details');
     }
 };

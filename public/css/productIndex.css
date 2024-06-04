@@ -1,0 +1,32 @@
+.cardInicio {
+    background-color: #F2F2F2;
+}
+
+.tituloCard {
+    color: #333;
+}
+
+.form-label {
+    color: #555;
+}
+
+.btnCard {
+    background-color: #FFC107;
+    border-color: #FFC107;
+}
+
+.btnCard2 {
+    background-color: #e9950e;
+    border-color: #e9950e;
+}
+
+
+
+.table-hover tbody tr:hover {
+    cursor: pointer;
+}
+
+.stock-agotado {
+    color: red;
+    font-weight: bold;
+}

@@ -1,0 +1,14 @@
+.labelRegister{
+    width: 90%;
+align-items: center;
+margin-top: 5px;
+}
+.form-control:disabled{
+    background-color: #c1c1c1;
+    text-align: right;
+    
+}
+.form-control{
+    text-align: right;
+    
+}

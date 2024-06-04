@@ -67,9 +67,11 @@ return [
 
         'daily' => [
             'driver' => 'daily',
+            
             // separacion de archivo por fecha
             'path' => storage_path('logs/laravel-api-{date}.log'),
             'level' => env('LOG_LEVEL', 'debug'),
+
             // Dias que se guarda 
             'days' => env('LOG_DAILY_DAYS', 7),
             'replace_placeholders' => true,

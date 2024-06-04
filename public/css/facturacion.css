@@ -1,0 +1,30 @@
+#productList {
+    max-width: 50vw;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid #cccccc00;
+    border-top: none;
+}
+.list-group-item {
+    cursor: pointer;
+}
+
+.contenedorFinalizarCompra{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin-right: 50px;
+}
+
+.finalizaCompra{
+    padding: 20px;
+    
+}
+
+.finalizaCompra:hover{
+    cursor: pointer;
+    box-shadow: 0px 0px 10px #ba0404;
+}

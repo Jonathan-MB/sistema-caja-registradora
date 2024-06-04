@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('user_name')->nullable(false);
-            $table->string('user_cc_nit')->nullable(false);
+            $table->string('user_cc_nit')->nullable(false)->unique();
             $table->string('user_business_name')->nullable();
             $table->foreignId('type_id')->constrained('types');
             $table->timestamps();
